@@ -30,13 +30,15 @@ const server = net
   socket.pipe(streamBroadcaster(socket))
 })
 
-server.listen(3000, ()=> console.log('server is running at 3000'))
+
 
 
 server.on('connection', socket => {
   socket.id = randomUUID()
+  
   console.log('new connection!', socket.id)
   users.set(socket.id, socket)
+  
   socket.write(JSON.stringify({
     id: socket.id.slice(0, 4)
   }))
@@ -46,3 +48,5 @@ server.on('connection', socket => {
     users.delete(socket.id)
   })
 })
+
+server.listen(3000, ()=> console.log('server is running at 3000'))
