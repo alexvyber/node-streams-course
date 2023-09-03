@@ -15,7 +15,6 @@ import { CSVToNDJSON } from "./stream-components/csv-to-ndjson.js"
 import { Reporter } from "./stream-components/reporter.js"
 import { log } from "./util.js"
 
-
 const filename = "big.csv"
 
 const { size: fileSize } = statSync(filename)
@@ -23,7 +22,6 @@ const { size: fileSize } = statSync(filename)
 let counter = 0
 
 const processData = Transform({
-
   transform(chunk, enc, callback) {
     const data = JSON.parse(chunk)
     const result = JSON.stringify({

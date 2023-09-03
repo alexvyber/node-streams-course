@@ -46,8 +46,6 @@ export class CSVToNDJSON extends Transform {
       if (!NDJSONLine.length) continue
       const ndJSONData = NDJSONLine.join(",")
 
-
-      
       yield Buffer.from("{".concat(ndJSONData).concat("}").concat(BREAK))
     }
   }

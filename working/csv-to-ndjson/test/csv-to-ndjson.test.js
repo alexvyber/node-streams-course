@@ -24,51 +24,50 @@ describe("CSV to JSON", () => {
     expect(JSON.parse(current)).toStrictEqual(expected)
   })
 
-  it('it should work with strings that doesnt contains breaklines at the end', () => {
+  it("it should work with strings that doesnt contains breaklines at the end", () => {
     const csvString = `id,name,address\n01,erick,address01`
     const csvToJSON = new CSVToNDJSON({
-      delimiter: ',',
-      headers: ['id', 'name', 'address']
+      delimiter: ",",
+      headers: ["id", "name", "address"],
     })
 
     const expected = JSON.stringify({
-      id: '01',
-      name: 'erick',
-      address: 'address01'
+      id: "01",
+      name: "erick",
+      address: "address01",
     })
 
     const fn = vitest.fn()
-    csvToJSON.on('data', fn)
+    csvToJSON.on("data", fn)
     csvToJSON.write(csvString)
     csvToJSON.end()
 
     const [current] = fn.mock.lastCall
     expect(JSON.parse(current)).toStrictEqual(JSON.parse(expected))
   })
-  it('it should work with files that has breaklines in the begging in of the string', () => {
+  it("it should work with files that has breaklines in the begging in of the string", () => {
     const csvString = `\n\nid,name,address\n\n01,erick,address01\n02,ana,mystreet\n\n`
     const csvToJSON = new CSVToNDJSON({
-      delimiter: ',',
-      headers: ['id', 'name', 'address']
+      delimiter: ",",
+      headers: ["id", "name", "address"],
     })
 
     const expected = [
       JSON.stringify({
-        id: '01',
-        name: 'erick',
-        address: 'address01'
+        id: "01",
+        name: "erick",
+        address: "address01",
       }),
 
       JSON.stringify({
-        id: '02',
-        name: 'ana',
-        address: 'mystreet'
+        id: "02",
+        name: "ana",
+        address: "mystreet",
       }),
-
     ]
 
     const fn = vitest.fn()
-    csvToJSON.on('data', fn)
+    csvToJSON.on("data", fn)
     csvToJSON.write(csvString)
     csvToJSON.end()
 
