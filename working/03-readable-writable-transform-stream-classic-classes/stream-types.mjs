@@ -89,15 +89,15 @@ const readable = Readable({
 
 const mapHeaders = Transform({
   transform(chunk, _encoding, callback) {
-    this.flag = this.flag ?? true 
+    this.flag = this.flag ?? true
 
     if (this.flag) {
       callback(null, "id,name\n" + chunk)
       this.flag = false
-      return 
+      return
     }
 
-    callback(null,  chunk)
+    callback(null, chunk)
   },
 })
 
@@ -109,6 +109,5 @@ const mapFields = Transform({
   },
 })
 
-const pipeline = readable.pipe(mapFields).pipe(mapHeaders)
-.pipe(createWriteStream('my.csv'))
+const pipeline = readable.pipe(mapFields).pipe(mapHeaders).pipe(createWriteStream("my.csv"))
 // .pipe(process.stdout)

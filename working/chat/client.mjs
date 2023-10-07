@@ -20,9 +20,6 @@ const output = Writable({
 })
 
 const resetChatAfterSent = PassThrough()
-resetChatAfterSent.on("data", () => log('type: '))
+resetChatAfterSent.on("data", () => log("type: "))
 
-process.stdin
-  .pipe(resetChatAfterSent)
-  .pipe(net.connect(3000))
-  .pipe(output)
+process.stdin.pipe(resetChatAfterSent).pipe(net.connect(3000)).pipe(output)

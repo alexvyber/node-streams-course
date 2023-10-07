@@ -6,10 +6,10 @@ const file = createReadStream("./big.file")
 const file2 = createReadStream("./big.file")
 
 createServer((req, res) => {
-file.pipe(res)
+  file.pipe(res)
 }).listen(3000, () => console.log("started"))
 
 createServer(async (req, res) => {
   file.pipe(res)
   await pipeline(file2, res)
-  }).listen(3001, () => console.log("started"))
+}).listen(3001, () => console.log("started"))

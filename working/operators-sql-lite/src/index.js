@@ -18,14 +18,13 @@ await serializeAsync()
 const DEFAULT_LIMIT = 100
 
 async function* selectAsStream() {
-  
   let skip = 0
 
   while (true) {
     const data = await findAllAsync(`SELECT * FROM users LIMIT ${DEFAULT_LIMIT} OFFSET ${skip}`)
-    
+
     skip += DEFAULT_LIMIT
-    
+
     // if we've consumed all data it's gonna stop!
     if (!data.length) break
 
@@ -50,7 +49,7 @@ const stream = Readable.from(selectAsStream())
     return JSON.stringify(item).concat("\n")
   })
 
-  // .forEach(item => console.log(item))
+// .forEach(item => console.log(item))
 // for await (const item of stream) {
 //   console.log(item)
 // }
